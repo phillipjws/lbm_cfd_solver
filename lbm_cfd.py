@@ -65,7 +65,13 @@ def main():
         F = F + -(1/tau) * (F - F_eq)
 
         if(iter % plot_every == 0):
-            pyplot.imshow(np.sqrt(ux**2 + uy**2))
+            dfydx = ux[2:, 1:-1] - ux[0:-2, 1:-1]
+            dfxdy = uy[1:-1, 2:] - uy[1:-1, 0:-2]
+
+            curl = dfydx - dfxdy
+
+            pyplot.imshow(curl, cmap="magma")
+            # pyplot.imshow(np.sqrt(ux**2 + uy**2))
             pyplot.pause(0.01)
             pyplot.cla()
 
